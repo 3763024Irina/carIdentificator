@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@main
+
 struct carIdentificatorApp: App {
     let persistenceController = PersistenceController.shared
 
