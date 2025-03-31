@@ -5,8 +5,41 @@
 //  Created by Irina on 31/3/25.
 //
 import SwiftUI
+struct SplashScreenView: View {
+    @State private var isActive = false
 
-// Модель данных
+    var body: some View {
+        if isActive {
+            ContentView()
+        } else {
+            VStack {
+                Image(systemName: "car.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .foregroundColor(.blue)
+                
+                Text("CarIdentificator")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding()
+                
+                Text("Добро пожаловать!")
+                    .font(.title2)
+                    .foregroundColor(.gray)
+            }
+            .onAppear {
+               
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    withAnimation {
+                        isActive = true
+                    }
+                }
+            }
+        }
+    }
+}
+
 struct Car: Identifiable {
     let id = UUID()
     let name: String
@@ -15,7 +48,7 @@ struct Car: Identifiable {
     let imageName: String
 }
 
-// Данные для отображения
+
 let cars = [
     Car(name: "Volkswagen Beetle", year: 1938, description: "Легендарный компактный автомобиль, выпускавшийся с 1938 года. Известен своей уникальной формой и стал символом доступного транспорта. За 81 год производства было продано 23 миллиона экземпляров по всему миру.", imageName: "beetle"),
     Car(name: "Ford Model T", year: 1908, description: "Первый массовый автомобиль, произведенный с использованием конвейерной сборки. Выпускался с 1908 по 1927 год и сделал автомобили доступными для широких масс, революционизировав автомобильную промышленность.", imageName: "model_t"),
@@ -29,7 +62,7 @@ let cars = [
     Car(name: "Chevrolet Corvette", year: 1953, description: "Представленный в 1953 году, Corvette стал синонимом производительности и стиля, став культовым американским спортивным автомобилем, значительно повлиявшим на автомобильную промышленность.", imageName: "chevrolet_corvette")
 ]
 
-// Главный экран с таблицей
+
 struct ContentView: View {
     var body: some View {
         NavigationView {
@@ -44,7 +77,7 @@ struct ContentView: View {
     }
 }
 
-// Детальный экран
+
 struct DetailView: View {
     let car: Car
     
@@ -74,12 +107,12 @@ struct DetailView: View {
     }
 }
 
-// Запуск приложения
+
 @main
 struct MyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashScreenView()
         }
     }
 }
